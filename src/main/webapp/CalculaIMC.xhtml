@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Gera IMC</title>
+</h:head>
+<h:body>
+	<h:form id="formulario">
+		<p:growl sticky="true">
+			<p:autoUpdate />
+		</p:growl>
+		<h:panelGrid columns="2" id="painel">
+
+			<p:outputLabel for="campoData" value="Data Nasc:" />
+			<p:calendar size="15" required="true"
+				requiredMessage="Digite a Data Nasc!" id="campoData" showOn="button"
+				pattern="dd/MM/yyyy" />
+
+			<p:outputLabel for="observacao" value="Observação:" />
+			<p:inputTextarea id="observacao" cols="50" rows="5" maxlength="200"
+				required="true" requiredMessage="Digite a Observação!"
+				counter="digitos" value="#{pessoaMB.pessoa.observacao}"
+				counterTemplate="{0} caracteres restantes" />
+			<p:outputLabel value="" />
+			<p:outputLabel id="digitos" />
+
+			<p:outputLabel value="Curso " />
+			<p:selectOneMenu id="curso" filter="true" required="true"
+				requiredMessage="Digite o Curso!">
+				<f:selectItem itemLabel="--Selecione--" />
+				<f:selectItem itemLabel="Sistemas Informação"
+					itemValue="Sistemas de Informação" />
+				<f:selectItem itemLabel="Química" itemValue="Química" />
+				<f:selectItem itemLabel="Agronomia" itemValue="Agronomia" />
+				<f:selectItem itemLabel="Zootecnia" itemValue="Zootecnia" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Esolaridade: " />
+			<p:selectOneRadio id="radio">
+				<f:selectItem itemLabel="Fundamental" itemValue="F" />
+				<f:selectItem itemLabel="Médio" itemValue="M" />
+				<f:selectItem itemLabel="Superior" itemValue="S" />
+			</p:selectOneRadio>
+
+			<p:outputLabel for="nome" value="CPF" />
+			<p:inputMask mask="999.999.999-99" id="cpf" required="true"
+				requiredMessage="Digite o CPF!" value="#{pessoaMB.pessoa.cpf_cnpj}" />
+
+			<p:outputLabel value="Nome:" />
+			<p:inputText id="nome" size="30" value="#{meuMB.pessoa.nome}"
+				required="true" requiredMessage="Digite o nome!" />
+			<p:outputLabel value="Peso:" />
+			<p:inputNumber id="peso" size="15" value="#{meuMB.pessoa.peso}"
+				label="peso" required="true"
+				requiredMessage="Digite o peso entre 5 e 350!">
+				<f:validateDoubleRange minimum="5" maximum="350" />
+			</p:inputNumber>
+			<p:outputLabel value="Altura:" />
+			<p:inputNumber id="altura" size="15" value="#{meuMB.pessoa.altura}"
+				label="altura" required="true"
+				requiredMessage="Digite a altura entre 1 e 3!">
+				<f:validateDoubleRange minimum="1" maximum="3" />
+			</p:inputNumber>
+			<p:spacer height="10px" />
+			<p:spacer height="10px" />
+			<p:outputLabel value="IMC:" />
+			<p:outputLabel id="resultado" size="30"
+				value="#{meuMB.pessoa.resultado}" />
+		</h:panelGrid>
+		<p:spacer width="70px" height="50px" />
+	
+			
+				<p:outputLabel  value=" " />
+				<p:outputLabel  value=" " />
+				<p:dataTable border="1"
+					id="tabela" emptyMessage="Nenhum item na lista.">
+					<p:column headerText="CPF/CNPJ" style="text-align:center;">CPF</p:column>
+					<p:column sortBy="#{p.nome}" filterBy="#{p.nome}" headerText="Nome">Nome</p:column>
+					<p:column headerText="E-mail" style="text-align:center;">E-mail</p:column>
+					<p:column headerText="Observação">Observação</p:column>
+				</p:dataTable>
+			
+	</h:form>
+</h:body>
+</html>
